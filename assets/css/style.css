@@ -490,7 +490,7 @@ h3 {
 
 @media (prefers-reduced-motion: no-preference) {
   .hero__track {
-    animation: marquee var(--hero-speed, 11s) linear infinite;
+    animation: marquee var(--hero-speed, 7s) linear infinite;
   }
 }
 
