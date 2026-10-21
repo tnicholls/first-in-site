@@ -36,27 +36,16 @@
   </header>
 
   <main id="main">
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="hero__stage">
-        <h1 class="hero__word" id="hero-title"><span class="visually-hidden">First In </span>Exeter</h1>
-      </div>
-      <p class="hero__tag">Ticket-drop alerts for Exeter's big student nights. <strong>Face value. Before they sell out.</strong></p>
-      <div class="hero__meta">
-        <p>50° 43′ 06″ N / 3° 32′ 02″ W</p>
-        <p>Status: live</p>
-        <p>On Telegram</p>
-      </div>
-    </section>
 
-    <section class="band" aria-label="TP Wednesday sells out in 10 minutes">
+    <section class="band band--lead" aria-labelledby="page-title">
       <div class="band__media ph ph--duo" style="--pos: 50% 55%">
         <img src="../assets/img/exeter-river-twilight-900.jpg"
              srcset="../assets/img/exeter-river-twilight-900.jpg 900w, ../assets/img/exeter-river-twilight.jpg 1800w"
-             sizes="(max-aspect-ratio: 1/1) 132vh, 100vw" width="900" height="600" loading="lazy" decoding="async"
+             sizes="(max-aspect-ratio: 1/1) 132vh, 100vw" width="900" height="600" fetchpriority="high" decoding="async"
              alt="The River Exe at sunset, with the suspension footbridge silhouetted against a golden sky">
       </div>
       <div class="band__text">
-        <p class="band__line band__line--display">TP Wednesday sells out in 10&nbsp;minutes.</p>
+        <h1 class="band__line band__line--display" id="page-title"><span class="visually-hidden">First In Exeter. </span>TP Wednesday sells out in 10&nbsp;minutes.</h1>
         <p class="band__sub band__sub--accent">You don&rsquo;t want to be the one in the flat who missed out.</p>
       </div>
     </section>
@@ -170,7 +159,7 @@
 
   <footer class="site-footer">
     <p class="site-footer__mark">First In <span class="star" aria-hidden="true">✱</span> 2026 – ∞</p>
-    <p>Not affiliated with FIXR or any venue.</p>
+    <p>Not affiliated with FIXR, Fatsoma or any venue.</p>
     <nav aria-label="Footer">
       <ul>
         <li><a href="../">All unis</a></li>

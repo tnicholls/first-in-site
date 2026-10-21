@@ -99,6 +99,6 @@ Add these to each page's `<head>` so link previews (Telegram, iMessage, Instagra
 
 - Say we help students get tickets at face value before they sell out.
 - Never mention reselling, never explain how alerts are found, and never suggest a link with any venue or ticketing company.
-- Every page's footer says: "Not affiliated with FIXR or any venue."
+- Every page's footer says: "Not affiliated with FIXR, Fatsoma or any venue."
 - The brand is "First In" ("First In Exeter" on the Exeter page).
 - British English: short, confident, a little dry.

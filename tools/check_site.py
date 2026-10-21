@@ -24,7 +24,7 @@ from urllib.parse import urlsplit, unquote
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link",
         "meta", "source", "track", "wbr"}
-DISCLAIMER = "Not affiliated with FIXR or any venue."
+DISCLAIMER = "Not affiliated with FIXR, Fatsoma or any venue."
 
 problems = []
 
@@ -201,7 +201,9 @@ def main():
             fail(f"{name} missing footer disclaimer")
         if re.search(r"\bping\b", p.source, re.I):
             fail(f"{name} mentions 'Ping'")
-        if re.search(r"resel|resale|scrap|monitor|polling|poll ", p.source, re.I):
+        # the owner's own line "Never deal with overpriced resale tickets again" is allowed
+        text = p.source.replace("Never deal with overpriced resale tickets again", "")
+        if re.search(r"resel|resale|scrap|monitor|polling|poll ", text, re.I):
             fail(f"{name} mentions reselling or how alerts are found")
         telegram = [u for _, u, _ in p.refs if "t.me/" in u]
         if name in ("index.html", "bristol/index.html", "bath/index.html", "404.html", "credits/index.html") and telegram:
