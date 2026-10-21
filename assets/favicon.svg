@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <title>First In</title>
+  <rect width="48" height="48" fill="#171717"/>
+  <g transform="translate(4 11)" fill="none" stroke="#fafafa" stroke-linejoin="miter">
+    <path d="M1 1H39V9A4 4 0 0 0 39 17V25H1V17A4 4 0 0 0 1 9Z" stroke-width="2.2"/>
+    <path d="M13 4V22" stroke-width="1.6" stroke-dasharray="2.4 2"/>
+    <path d="M22.5 9.5L27 6.5V20.5M22.5 20.5H31" stroke-width="2.8" stroke-linecap="square"/>
+  </g>
+</svg>

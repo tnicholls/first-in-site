@@ -1,0 +1,1300 @@
+/* ==========================================================================
+   First In - shared stylesheet
+   One file for every page. Each page picks its palette with a body class:
+     (none)          neutral monochrome (home, credits, 404)
+     .theme-exeter   forest green, brass, ivory
+     .theme-bristol  monochrome + Bristol-blue accent
+     .theme-bath     monochrome + spa-water accent
+   ========================================================================== */
+
+/* ---------- Fonts (self-hosted, SIL OFL 1.1 - see assets/fonts/) ---------- */
+
+@font-face {
+  font-family: "League Gothic";
+  src: url("../fonts/league-gothic-latin.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Space Mono";
+  src: url("../fonts/space-mono-400-latin.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Space Mono";
+  src: url("../fonts/space-mono-700-latin.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---------- Tokens ---------- */
+
+:root {
+  --font-display: "League Gothic", "Oswald", "Impact", "Arial Narrow", sans-serif;
+  --font-mono: "Space Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* neutral palette */
+  --black: #000;
+  --dark: #171717;
+  --grey: #dcdcdc;
+  --paper: #fafafa;
+  --white: #fff;
+
+  /* dark surfaces */
+  --bg: var(--dark);
+  --bg-glow: #2a2a2a;
+  --bg-deep: #050505;
+  --footer-bg: var(--black);
+  --fg: var(--grey);          /* 13:1 on #171717 */
+  --fg-strong: var(--paper);
+  --fg-muted: #a3a3a3;        /* 7.1:1 on #171717 */
+  --accent: var(--paper);     /* buttons, numbers, small labels on dark */
+  --rule: rgba(220, 220, 220, 0.28);
+  --rule-strong: rgba(220, 220, 220, 0.6);
+  --focus: var(--paper);
+  --header-solid: rgba(23, 23, 23, 0.94);
+  --shade: 0, 0, 0;           /* rgb triplet for photo overlays */
+
+  /* the giant hero word */
+  --word-top: #c4c4c4;
+  --word-bottom: #737373;     /* lowest stop still 3.8:1 on #171717 (large text) */
+
+  /* light section */
+  --light-bg: var(--paper);
+  --light-fg: var(--black);
+  --light-muted: #4a4a4a;     /* 8.5:1 on #fafafa */
+  --light-accent: var(--black);
+
+  /* photo treatment: neutral = plain greyscale */
+  --duo-mid: transparent;
+  --duo-hi: transparent;
+  --duo-lo: transparent;
+
+  --gutter: clamp(1rem, 4vw, 3.5rem);
+  --section-pad: clamp(4.5rem, 11vw, 10rem);
+  --header-h: 4.25rem;
+}
+
+.theme-exeter {
+  --bg: #10261a;
+  --bg-glow: #1f4a33;
+  --bg-deep: #07140d;
+  --footer-bg: #07140d;
+  --fg: #f3eee2;              /* 13.8:1 on #10261a */
+  --fg-strong: #f3eee2;
+  --fg-muted: #c9c2ae;        /* 9.0:1 */
+  --accent: #c9a86a;          /* brass, 7.1:1 on #10261a */
+  --rule: rgba(201, 168, 106, 0.38);
+  --rule-strong: rgba(201, 168, 106, 0.8);
+  --focus: #c9a86a;
+  --header-solid: rgba(16, 38, 26, 0.95);
+  --shade: 7, 20, 13;
+  --word-top: #e2c992;
+  --word-bottom: #93754a;     /* 3.7:1 on #10261a (large text) */
+  --light-bg: #f3eee2;
+  --light-fg: #10261a;        /* 13.8:1 on ivory */
+  --light-muted: #34463a;     /* 8.7:1 on ivory */
+  --light-accent: #7a5e2f;    /* dark brass, 5.2:1 on ivory */
+  --duo-mid: #1f4a33;
+  --duo-hi: #f1e3c2;
+  --duo-lo: #0e2117;
+}
+
+.theme-bristol {
+  --accent: #8aa2ff;          /* Bristol blue (glass), 7.4:1 on #171717 */
+  --rule: rgba(138, 162, 255, 0.3);
+  --rule-strong: rgba(138, 162, 255, 0.75);
+  --focus: #8aa2ff;
+  --light-accent: #2c4fd6;
+  --duo-mid: #3c4870;
+  --duo-hi: #eceef4;
+  --duo-lo: #0c0f18;
+}
+
+.theme-bath {
+  --accent: #63c7b5;          /* spa water, 8.8:1 on #171717 */
+  --rule: rgba(99, 199, 181, 0.3);
+  --rule-strong: rgba(99, 199, 181, 0.75);
+  --focus: #63c7b5;
+  --light-accent: #1f7a6c;
+  --duo-mid: #3b625b;
+  --duo-hi: #ecf3f1;
+  --duo-lo: #0a1412;
+}
+
+/* ---------- Base ---------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.65;
+  overflow-x: hidden;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (min-width: 1200px) {
+  body {
+    font-size: 0.9375rem;
+  }
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-underline-offset: 0.22em;
+  text-decoration-thickness: 1px;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-weight: 400;
+}
+
+[id] {
+  scroll-margin-top: calc(var(--header-h) + 1rem);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip {
+  position: absolute;
+  left: var(--gutter);
+  top: 0.75rem;
+  z-index: 100;
+  padding: 0.6rem 1rem;
+  background: var(--fg-strong);
+  color: var(--bg);
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+}
+
+/* hidden until focused (clipped, not moved off-screen, so the header's
+   backdrop blur can't pick it up) */
+.skip:not(:focus) {
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* ---------- Type ---------- */
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 400; /* League Gothic ships one (already heavy) weight */
+  font-synthesis: none;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  font-size: clamp(3.4rem, 8vw, 9.5rem);
+  color: var(--fg-strong);
+}
+
+.label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--fg-muted);
+}
+
+.mono-upper {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  --btn-fg: var(--accent);
+  --btn-bg: var(--bg);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  min-height: 2.875rem;
+  padding: 0.8rem 1.35rem;
+  border: 1px solid var(--btn-fg);
+  border-radius: 0;
+  background: transparent;
+  color: var(--btn-fg);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  background: var(--btn-fg);
+  color: var(--btn-bg);
+}
+
+.btn--small {
+  min-height: 2.375rem;
+  padding: 0.55rem 0.9rem;
+  font-size: 0.75rem;
+}
+
+.btn--block {
+  display: flex;
+  width: 100%;
+}
+
+.btn--quiet {
+  --btn-fg: var(--fg);
+}
+
+/* ---------- Header ---------- */
+
+.site-header {
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1rem;
+  min-height: var(--header-h);
+  padding: 0.75rem var(--gutter);
+  color: var(--fg);
+  border-bottom: 1px solid transparent;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* With JS the header sticks to the top and turns solid once you scroll.
+   Without JS it simply scrolls away with the hero. */
+.js .site-header {
+  position: fixed;
+}
+
+.site-header.is-solid {
+  background: var(--header-solid);
+  border-bottom-color: var(--rule);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.site-nav {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.site-nav a {
+  text-decoration: none;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid transparent;
+}
+
+.site-nav a:hover,
+.site-nav a[aria-current="page"] {
+  border-bottom-color: currentColor;
+}
+
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  justify-self: center;
+  padding: 0.35rem 0;
+  color: var(--fg-strong);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.wordmark .logo {
+  width: 1.9rem;
+  height: auto;
+  flex: none;
+}
+
+.wordmark__sub {
+  color: var(--accent);
+  font-weight: 400;
+}
+
+.site-header__cta {
+  justify-self: end;
+}
+
+@media (max-width: 760px) {
+  .site-header {
+    grid-template-columns: 1fr auto;
+  }
+
+  .site-nav {
+    display: none;
+  }
+
+  .wordmark {
+    justify-self: start;
+  }
+}
+
+@media (max-width: 400px) {
+  .wordmark {
+    letter-spacing: 0.12em;
+    font-size: 0.75rem;
+  }
+
+  .wordmark .logo {
+    width: 1.6rem;
+  }
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  position: relative;
+  display: grid;
+  grid-template-rows: 1fr auto auto;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: calc(var(--header-h) + 0.5rem) 0 1.75rem;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 75% at 50% 42%, var(--bg-glow) 0%, var(--bg) 48%, var(--bg-deep) 100%);
+  isolation: isolate;
+}
+
+.hero__stage {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* an over-wide child overflows equally both sides */
+  min-width: 0;
+}
+
+.hero__word {
+  flex: none;
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-synthesis: none;
+  /* purely width-driven so the word always bleeds off both edges. It is never
+     shrunk to fit the height: on wide, short screens the hero just runs past
+     the fold (the tagline sits below it) rather than losing the crop */
+  font-size: var(--hero-size, 55vw);
+  translate: var(--hero-nudge, 0) 0;
+  line-height: 0.86;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--word-bottom);
+  background: linear-gradient(180deg, var(--word-top) 10%, var(--word-bottom) 92%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  user-select: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero__word {
+    animation: drift 26s ease-in-out infinite alternate;
+  }
+}
+
+/* each word overflows ~5vw per side, so a 2vw drift keeps both edges cropped */
+@keyframes drift {
+  from {
+    transform: translateX(-2vw);
+  }
+  to {
+    transform: translateX(2vw);
+  }
+}
+
+.hero__tag {
+  max-width: 34rem;
+  margin: 1.25rem auto 0;
+  padding: 0 var(--gutter);
+  text-align: center;
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--fg);
+  text-wrap: balance;
+}
+
+.hero__tag strong {
+  display: block;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  padding: 0 var(--gutter);
+}
+
+.hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 2rem;
+  margin-top: 2.5rem;
+  padding: 0 var(--gutter);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--fg-muted);
+}
+
+.hero__meta p {
+  margin: 0;
+}
+
+/* Page-specific hero sizes, measured from League Gothic's glyph widths
+   (incl. -0.03em tracking) so each word's ink is ~108-110% of the viewport
+   width. --hero-nudge centres the ink rather than the advance box (the first
+   letter's left side bearing is wider than the last one's right), so both
+   edges crop by the same amount. */
+.page-home    { --hero-size: 55vw;  --hero-nudge: -0.015em; }
+.page-exeter  { --hero-size: 59vw;  --hero-nudge: -0.025em; }
+.page-bristol { --hero-size: 54vw;  --hero-nudge: -0.033em; }
+.page-bath    { --hero-size: 88vw;  --hero-nudge: -0.015em; }
+.page-404     { --hero-size: 112vw; --hero-nudge: -0.016em; }
+
+/* On short landscape screens drop the meta row so the hero stays compact */
+@media (min-aspect-ratio: 1/1) and (max-height: 1000px) {
+  .hero__meta {
+    display: none;
+  }
+}
+
+/* Portrait phones: the word is width-bound, so trim the empty height around it */
+@media (max-aspect-ratio: 3/4) {
+  .hero {
+    min-height: 0;
+    padding-top: calc(var(--header-h) + 16vh);
+    padding-bottom: 9vh;
+  }
+
+  /* coming-soon and 404 heroes carry a button: keep it above the fold */
+  .hero--actions {
+    padding-top: calc(var(--header-h) + 6vh);
+  }
+
+  .hero__tag {
+    margin-top: 2.25rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero__tag {
+    letter-spacing: 0.05em;
+  }
+
+  .hero__meta {
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+/* ---------- Photos: greyscale by default, duotone where a palette says so ---------- */
+
+.ph {
+  position: relative;
+  overflow: hidden;
+  background: var(--duo-mid, transparent);
+  isolation: isolate;
+}
+
+.ph img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.08);
+}
+
+.ph--plain img {
+  filter: none;
+}
+
+.ph--duo img {
+  mix-blend-mode: luminosity;
+  filter: grayscale(1) contrast(1.12) brightness(1.04);
+}
+
+/* highlights pushed toward the light tone, shadows lifted to the dark tone */
+.ph--duo::before,
+.ph--duo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.ph--duo::before {
+  background: var(--duo-hi);
+  mix-blend-mode: multiply;
+}
+
+.ph--duo::after {
+  background: var(--duo-lo);
+  mix-blend-mode: lighten;
+}
+
+/* ---------- Full-bleed photo band ---------- */
+
+.band {
+  position: relative;
+  display: grid;
+  align-items: end;
+  min-height: 88vh;
+  min-height: 88svh;
+  color: var(--fg-strong);
+  background: var(--bg-deep);
+}
+
+.band__media {
+  position: absolute;
+  inset: 0;
+}
+
+.band__media img {
+  object-position: var(--pos, 50% 50%);
+}
+
+.band::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(0deg, rgba(var(--shade), 0.92) 0%, rgba(var(--shade), 0.6) 32%, rgba(var(--shade), 0) 68%),
+    linear-gradient(90deg, rgba(var(--shade), 0.55) 0%, rgba(var(--shade), 0) 60%);
+  pointer-events: none;
+}
+
+/* Coming-soon pages: no photo, just the line on a dark panel */
+.band--plain {
+  min-height: 50vh;
+  min-height: 50svh;
+  border-top: 1px solid var(--rule);
+  background: radial-gradient(75% 95% at 0% 100%, var(--bg-glow) 0%, var(--bg-deep) 72%);
+}
+
+.band--plain::after {
+  content: none;
+}
+
+.band__text {
+  position: relative;
+  z-index: 1;
+  max-width: 44rem;
+  padding: 0 var(--gutter) clamp(2.5rem, 8vh, 6rem);
+}
+
+.band__line {
+  margin: 0 0 1.1rem;
+  font-size: clamp(1.35rem, 2.6vw, 2.25rem);
+  line-height: 1.25;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  font-weight: 700;
+  text-wrap: balance;
+}
+
+.band__sub {
+  max-width: 30rem;
+  margin: 0;
+  color: var(--fg);
+  text-wrap: pretty;
+}
+
+.band__sub a {
+  color: var(--accent);
+}
+
+/* ---------- Editorial section + collage ---------- */
+
+.editorial {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: center;
+  padding: var(--section-pad) var(--gutter);
+}
+
+.editorial__text {
+  position: relative;
+  z-index: 2;
+}
+
+.editorial__rule {
+  position: relative;
+  height: 1px;
+  margin: clamp(1.75rem, 3.5vw, 3rem) 0;
+  /* runs across the gap and under the collage */
+  width: calc(100% + clamp(2rem, 6vw, 6rem) + 18%);
+  background: var(--rule-strong);
+  z-index: -1;
+}
+
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1.75rem;
+  max-width: 30rem;
+}
+
+.steps li {
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  align-items: baseline;
+}
+
+.steps__n {
+  color: var(--accent);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+}
+
+.steps h3 {
+  margin: 0 0 0.35rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--fg-strong);
+}
+
+.steps p {
+  margin: 0;
+  color: var(--fg-muted);
+  text-wrap: pretty;
+}
+
+.steps p + p {
+  margin-top: 0.5rem;
+}
+
+.steps a {
+  color: var(--accent);
+}
+
+.editorial__note {
+  max-width: 30rem;
+  margin: 2.25rem 0 0;
+  padding-left: 3rem;
+  color: var(--fg-muted);
+  font-size: 0.8125rem;
+  text-wrap: pretty;
+}
+
+.editorial__note a {
+  color: var(--accent);
+}
+
+/* above .editorial__text (z-index 2) so the rule tucks under the photos */
+.collage {
+  position: relative;
+  z-index: 3;
+  aspect-ratio: 1 / 1.08;
+  margin: 0;
+}
+
+.collage .ph {
+  position: absolute;
+  margin: 0;
+  box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.35);
+}
+
+.collage__a {
+  top: 0;
+  left: 12%;
+  width: 54%;
+  aspect-ratio: 4 / 5;
+}
+
+.collage__b {
+  top: 21%;
+  right: 0;
+  width: 44%;
+  aspect-ratio: 3 / 4;
+  z-index: 2;
+}
+
+.coords {
+  position: absolute;
+  left: 4%;
+  bottom: 3%;
+  z-index: 4;
+  display: grid;
+  place-content: center;
+  width: clamp(9.5rem, 19vw, 17.5rem);
+  aspect-ratio: 1;
+  margin: 0;
+  border: 1px solid var(--rule-strong);
+  border-radius: 50%;
+  background: rgba(var(--shade), 0.66);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+  text-align: center;
+  font-size: clamp(0.6875rem, 0.95vw, 0.875rem);
+  line-height: 1.6;
+  letter-spacing: 0.08em;
+  color: var(--fg-strong);
+}
+
+.coords__label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: max(0.75rem, 0.85em);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+}
+
+.coords span {
+  display: block;
+}
+
+@media (max-width: 760px) {
+  .editorial {
+    grid-template-columns: 1fr;
+  }
+
+  .editorial__rule {
+    width: calc(100% + var(--gutter));
+  }
+
+  .collage {
+    aspect-ratio: 1 / 1.05;
+    margin-top: 1rem;
+  }
+
+  .collage__a {
+    left: 0;
+    width: 68%;
+    aspect-ratio: 4 / 4.6;
+  }
+
+  .collage__b {
+    top: 30%;
+    width: 46%;
+  }
+
+  .coords {
+    bottom: 0;
+    width: 9.5rem;
+    font-size: 0.6875rem;
+  }
+}
+
+/* ---------- Divider ---------- */
+
+.divider {
+  margin: 0;
+  padding: 0 0 var(--section-pad);
+  border: 0;
+  height: auto;
+  overflow: visible;
+  text-align: center;
+  color: var(--accent);
+}
+
+.divider::before {
+  content: "* * *";
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(3.25rem, 6vw, 6rem);
+  line-height: 1;
+  letter-spacing: 0.5em;
+  padding-left: 0.5em; /* balance the trailing letter-space so it centres */
+}
+
+/* ---------- Light section + cards ---------- */
+
+.light {
+  --accent: var(--light-fg);
+  --fg: var(--light-fg);
+  --fg-strong: var(--light-fg);
+  --fg-muted: var(--light-muted);
+  --focus: var(--light-fg);
+  --bg: var(--light-bg);
+  background: var(--light-bg);
+  color: var(--light-fg);
+  padding: var(--section-pad) var(--gutter);
+}
+
+.light__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 22rem);
+  gap: 1.5rem 4rem;
+  align-items: end;
+  margin-bottom: clamp(2.5rem, 6vw, 5rem);
+}
+
+.light__head .display {
+  font-size: clamp(3.6rem, 9vw, 10.5rem);
+}
+
+.light__intro {
+  margin: 0;
+  color: var(--light-muted);
+  text-wrap: pretty;
+}
+
+.light__foot {
+  max-width: 44rem;
+  margin: clamp(2rem, 4vw, 3rem) 0 0;
+  color: var(--light-muted);
+  font-size: 0.8125rem;
+  text-wrap: pretty;
+}
+
+@media (max-width: 760px) {
+  .light__head {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  gap: clamp(1rem, 2vw, 1.75rem);
+}
+
+.cards--two {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+  max-width: 64rem;
+}
+
+.card {
+  --card-accent: var(--light-accent);
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--light-fg);
+  background: var(--light-bg);
+}
+
+.card__media {
+  aspect-ratio: 4 / 3;
+  border-bottom: 1px solid var(--light-fg);
+}
+
+/* coming-soon cards: no photo yet, just the city's coordinates in outline */
+.card__panel {
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background: var(--card-accent);
+  /* a touch darker, so the live Exeter photo stays the strongest card */
+  background: color-mix(in srgb, var(--card-accent) 82%, #000);
+  color: var(--light-bg);
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-synthesis: none;
+  line-height: 0.95;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.card__panel span {
+  font-size: 4.5rem;
+  font-size: 19cqi;
+}
+
+@supports (-webkit-text-stroke: 1px) {
+  .card__panel {
+    color: transparent;
+    -webkit-text-stroke: 1px var(--light-bg);
+  }
+}
+
+.card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: 1.5rem 1.5rem 1.6rem;
+}
+
+.card__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.card__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-synthesis: none;
+  font-size: clamp(2.75rem, 4.4vw, 4rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.card__coords {
+  margin: 0;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  color: var(--light-muted);
+  text-align: right;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  align-self: flex-start;
+  margin: 0;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--card-accent);
+  color: var(--card-accent);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  line-height: 1.3;
+}
+
+.status::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border: 1px solid currentColor;
+}
+
+.status--live {
+  background: var(--card-accent);
+  border-color: var(--card-accent);
+  color: var(--light-bg);
+}
+
+.status--live::before {
+  background: currentColor;
+}
+
+.card__text {
+  margin: 0;
+  color: var(--light-muted);
+  text-wrap: pretty;
+}
+
+.card__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--light-fg);
+}
+
+.card__list li {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--light-fg) 22%, transparent);
+}
+
+.card__price {
+  margin: 0.25rem 0 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-synthesis: none;
+  font-size: clamp(4.5rem, 8vw, 7rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+}
+
+.card__price small {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--light-muted);
+  margin-left: 0.4rem;
+}
+
+.card__kicker {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--card-accent);
+}
+
+.card__actions {
+  margin-top: auto;
+  padding-top: 0.6rem;
+}
+
+/* per-uni accents on the home page cards, so each palette shows */
+.card--exeter {
+  --card-accent: #183a28;
+  --duo-mid: #1f4a33;
+  --duo-hi: #f1e3c2;
+  --duo-lo: #0e2117;
+}
+
+.card--bristol {
+  --card-accent: #2c4fd6;     /* 6.2:1 on #fafafa */
+  --duo-mid: #3c4870;
+  --duo-hi: #eceef4;
+  --duo-lo: #0c0f18;
+}
+
+.card--bath {
+  --card-accent: #1f7a6c;     /* 5.0:1 on #fafafa */
+  --duo-mid: #3b625b;
+  --duo-hi: #ecf3f1;
+  --duo-lo: #0a1412;
+}
+
+/* ---------- Credits page ---------- */
+
+.page-intro {
+  padding: calc(var(--header-h) + clamp(3rem, 8vw, 7rem)) var(--gutter) clamp(2rem, 5vw, 4rem);
+  background:
+    radial-gradient(90% 60% at 50% 0%, var(--bg-glow) 0%, var(--bg) 60%);
+}
+
+.page-intro .display {
+  font-size: clamp(4.5rem, 16vw, 15rem);
+}
+
+.page-intro p {
+  max-width: 40rem;
+  margin-top: 1.5rem;
+  color: var(--fg-muted);
+}
+
+.credits {
+  padding: 0 var(--gutter) var(--section-pad);
+}
+
+.credits h2 {
+  margin: clamp(3rem, 6vw, 5rem) 0 1.5rem;
+  font-size: clamp(2.6rem, 5vw, 4.5rem);
+}
+
+.credit-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--rule-strong);
+}
+
+.credit {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr);
+  gap: 1.25rem 1.75rem;
+  align-items: start;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.credit .ph {
+  aspect-ratio: 1;
+}
+
+.credit h3 {
+  margin: 0 0 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--fg-strong);
+}
+
+.credit dl {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 0.2rem 1rem;
+  margin: 0;
+  color: var(--fg-muted);
+  font-size: 0.8125rem;
+}
+
+.credit dt {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.6875rem;
+  padding-top: 0.15rem;
+}
+
+.credit dd {
+  margin: 0;
+  color: var(--fg);
+  overflow-wrap: anywhere;
+}
+
+.credit--font {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.credits__note {
+  max-width: 44rem;
+  margin-top: 1.5rem;
+  color: var(--fg-muted);
+  font-size: 0.8125rem;
+}
+
+@media (max-width: 480px) {
+  .credit {
+    grid-template-columns: 4.5rem minmax(0, 1fr);
+    gap: 1rem;
+  }
+
+  .credit dl {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .credit dt {
+    padding-top: 0.5rem;
+  }
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, auto));
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem 2rem;
+  padding: 2.25rem var(--gutter) 2.5rem;
+  background: var(--footer-bg);
+  color: var(--fg-muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  border-top: 1px solid var(--rule);
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+.site-footer__mark {
+  color: var(--fg-strong);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+
+.site-footer__mark .star {
+  color: var(--accent);
+}
+
+.site-footer nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.site-footer nav a {
+  color: var(--fg);
+}
+
+@media (max-width: 900px) {
+  .site-footer {
+    grid-template-columns: 1fr;
+    justify-content: start;
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
