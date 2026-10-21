@@ -14,9 +14,9 @@ It's a plain static site: HTML, one CSS file and one small script. No build step
 | `credits/index.html` | Photo and font credits (required by the licences) |
 | `404.html` | Not-found page (GitHub Pages uses it automatically) |
 | `assets/css/style.css` | All styles. Palettes are set per page with a body class. |
-| `assets/js/main.js` | Pins the header and makes it solid on scroll. Optional: the site works without it. |
+| `assets/js/main.js` | Pins the header, and fades sections in and out as you scroll (off for reduced motion). The site works without it. |
 | `assets/fonts/` | Self-hosted League Gothic and Space Mono (Latin subset), plus their OFL licences |
-| `assets/img/` | The three Exeter photos (full size and `-900` versions for phones/cards) and `credits.json` |
+| `assets/img/` | The three Exeter photos, plus the Bristol (Wills Memorial Building) and Bath (Bath Abbey) photos supplied by First In and free to use. Full size and `-900` versions for phones/cards, plus `credits.json` |
 | `assets/favicon.svg` | The ticket-with-a-1 logo |
 | `assets/apple-touch-icon.png` | 180×180 PNG of the logo for iOS "Add to Home Screen" |
 | `tools/check_site.py` | Link, HTML and content checker (see below) |
@@ -84,11 +84,12 @@ Add these to each page's `<head>` so link previews (Telegram, iMessage, Instagra
 - **Type:** League Gothic (headings, always uppercase) stands in for Rama Gothic. It only comes in one weight, which is already heavy, so headings use it as is rather than faking a bolder weight. Space Mono is used for everything else.
 - **Palettes:** the home page, coming-soon pages, credits and 404 are neutral black, `#171717`, `#dcdcdc`, `#fafafa` and white. The Exeter page uses forest green, brass and ivory, with green-tinted photos. Bristol gets a "Bristol blue" accent and Bath a spa-water accent. Each palette is a block of CSS variables at the top of `style.css` (`.theme-exeter`, `.theme-bristol`, `.theme-bath`). Text colours were picked to pass WCAG AA contrast, and the ratios are noted beside them in the CSS.
 - **Hero word:** sized from the font's measured letter widths so each word runs about 5% past both edges of the screen. The size is purely width-driven and never shrinks to fit the height, so on wide, short screens the hero runs past the fold and the tagline sits just below it. The slow drift (±2vw) is smaller than the overflow, so both edges stay cropped throughout. It switches off for anyone with "reduce motion" turned on.
-- **Photos:** just three, all of Exeter (river at twilight, the cathedral, the quay). Greyscale on the home page, duotone on the Exeter page and the Exeter card. Bristol and Bath have no photos yet: their cards show their coordinates in outline on the card's accent colour, and their pages use a plain dark band. All effects are CSS (`mix-blend-mode`), so the image files stay untouched apart from resizing.
+- **Photos:** three of Exeter (river at twilight, the cathedral, the quay), used under Creative Commons licences, and one each of Bristol (Wills Memorial Building) and Bath (Bath Abbey), supplied by First In. Greyscale on the home page apart from the uni cards, which are duotone in each city's colours like the city pages. The coming-soon pages use a photo band like Exeter's. All effects are CSS (`mix-blend-mode`), so the image files stay untouched apart from resizing.
+- **Scroll fades:** like Squarespace's fade animation. Sections and photos fade up as they scroll into view and reset once they're well off screen, so they fade in again on the way back. The hero fades in on load. All of it switches off for "reduce motion" and for printing, and nothing is hidden if `main.js` doesn't load.
 
 ## Adding a new uni
 
-1. Copy `bristol/` to a new folder, for example `leeds/`, and change the name, coordinates, text and `theme-…`/`page-…` classes.
+1. Copy `bristol/` to a new folder, for example `leeds/`, and change the name, coordinates, text and `theme-…`/`page-…` classes. The copy includes Bristol's photo band, so swap in the new city's photo (full size and `-900`) and credit it (step 5).
 2. Add a `.theme-leeds` palette block and a `.page-leeds { --hero-size: …vw; --hero-nudge: …em; }` line to `style.css`. For the size, roughly `110 / (letter width)`; the existing values are a good guide. The nudge (about `-0.015em` to `-0.035em`) centres the letters' ink so both edges crop equally.
 3. Add a card to the "Choose your uni" list on `index.html`.
 4. When the channel exists, switch the page to the Exeter layout and add the real Telegram links. Never add a placeholder link.

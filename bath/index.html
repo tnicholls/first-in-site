@@ -17,6 +17,7 @@
   <link rel="preload" href="../assets/fonts/league-gothic-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../assets/fonts/space-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../assets/fonts/space-mono-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <script>document.documentElement.classList.add('fx')</script>
   <link rel="stylesheet" href="../assets/css/style.css">
   <script src="../assets/js/main.js" defer></script>
 </head>
@@ -50,7 +51,13 @@
       </div>
     </section>
 
-    <section class="band band--plain" aria-label="Not live yet">
+    <section class="band" aria-label="Not live yet">
+      <div class="band__media ph ph--duo" style="--pos: 52% 45%">
+        <img src="../assets/img/bath-abbey-900.jpg"
+             srcset="../assets/img/bath-abbey-900.jpg 900w, ../assets/img/bath-abbey.jpg 1400w"
+             sizes="(max-aspect-ratio: 1/1) 132vh, 100vw" width="900" height="596" loading="lazy" decoding="async"
+             alt="Bath Abbey above Parade Gardens on a sunny day">
+      </div>
       <div class="band__text">
         <p class="band__line">Nobody's on the decks.<br>Yet.</p>
         <p class="band__sub">Studying in Exeter? <a href="../exeter/">First In Exeter</a> is live now.</p>

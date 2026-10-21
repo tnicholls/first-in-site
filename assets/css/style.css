@@ -316,6 +316,19 @@ h3 {
   --btn-fg: var(--fg);
 }
 
+/* filled: the main call to action */
+.btn--solid {
+  background: var(--btn-fg);
+  color: var(--btn-bg);
+}
+
+.btn--solid:hover,
+.btn--solid:focus-visible {
+  background: var(--fg-strong);
+  border-color: var(--fg-strong);
+  color: var(--btn-bg);
+}
+
 /* ---------- Header ---------- */
 
 .site-header {
@@ -393,6 +406,7 @@ h3 {
 
 .site-header__cta {
   justify-self: end;
+  white-space: nowrap;
 }
 
 @media (max-width: 760px) {
@@ -617,6 +631,13 @@ h3 {
   mix-blend-mode: lighten;
 }
 
+/* the bright, hazy skies in the Bath and Bristol bands clip under the stronger
+   contrast above and pick up a pink/grey cast, so they get a softer curve */
+.theme-bath .band__media img,
+.theme-bristol .band__media img {
+  filter: grayscale(1) contrast(1.06) brightness(0.97);
+}
+
 /* ---------- Full-bleed photo band ---------- */
 
 .band {
@@ -648,18 +669,6 @@ h3 {
   pointer-events: none;
 }
 
-/* Coming-soon pages: no photo, just the line on a dark panel */
-.band--plain {
-  min-height: 50vh;
-  min-height: 50svh;
-  border-top: 1px solid var(--rule);
-  background: radial-gradient(75% 95% at 0% 100%, var(--bg-glow) 0%, var(--bg-deep) 72%);
-}
-
-.band--plain::after {
-  content: none;
-}
-
 .band__text {
   position: relative;
   z-index: 1;
@@ -686,6 +695,29 @@ h3 {
 
 .band__sub a {
   color: var(--accent);
+}
+
+/* Exeter band: a big display headline with a brass line under it */
+.band__line--display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-synthesis: none;
+  font-size: clamp(2.9rem, 7.4vw, 7.4rem);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  text-shadow: 0 2px 18px rgba(var(--shade, 0, 0, 0), 0.55);
+}
+
+.band__sub--accent {
+  color: var(--accent);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-wrap: balance;
+}
+
+.band:has(.band__line--display) .band__text {
+  max-width: 70rem;
 }
 
 /* ---------- Editorial section + collage ---------- */
@@ -758,17 +790,49 @@ h3 {
   color: var(--accent);
 }
 
+.steps a.btn {
+  color: var(--btn-fg);
+}
+
+.steps a.btn--solid {
+  color: var(--btn-bg);
+}
+
+.steps a.btn:hover,
+.steps a.btn:focus-visible {
+  color: var(--btn-bg);
+}
+
+.steps p.steps__cta {
+  margin-top: 1rem;
+}
+
+.steps p.steps__small {
+  margin-top: 0.6rem;
+  font-size: 0.75rem;
+  text-wrap: balance;
+}
+
 .editorial__note {
   max-width: 30rem;
   margin: 2.25rem 0 0;
   padding-left: 3rem;
   color: var(--fg-muted);
   font-size: 0.8125rem;
-  text-wrap: pretty;
+  text-wrap: balance;
 }
 
 .editorial__note a {
   color: var(--accent);
+}
+
+.editorial__note strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--fg-strong);
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 /* above .editorial__text (z-index 2) so the rule tucks under the photos */
@@ -913,6 +977,7 @@ h3 {
 
 .light__head .display {
   font-size: clamp(3.6rem, 9vw, 10.5rem);
+  text-wrap: balance;
 }
 
 .light__intro {
@@ -949,6 +1014,25 @@ h3 {
   max-width: 64rem;
 }
 
+/* tablets: two columns, and an odd last card spans the row (photo left, text
+   right) instead of sitting alone next to an empty gap */
+@media (min-width: 600px) and (max-width: 939.98px) {
+  .cards:not(.cards--two) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cards:not(.cards--two) > .card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    flex-direction: row;
+  }
+
+  .cards:not(.cards--two) > .card:last-child:nth-child(odd) .card__media {
+    flex: 0 0 calc(50% - clamp(1rem, 2vw, 1.75rem) / 2);
+    border-bottom: 0;
+    border-right: 1px solid var(--light-fg);
+  }
+}
+
 .card {
   --card-accent: var(--light-accent);
   display: flex;
@@ -960,39 +1044,6 @@ h3 {
 .card__media {
   aspect-ratio: 4 / 3;
   border-bottom: 1px solid var(--light-fg);
-}
-
-/* coming-soon cards: no photo yet, just the city's coordinates in outline */
-.card__panel {
-  container-type: inline-size;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  background: var(--card-accent);
-  /* a touch darker, so the live Exeter photo stays the strongest card */
-  background: color-mix(in srgb, var(--card-accent) 82%, #000);
-  color: var(--light-bg);
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-synthesis: none;
-  line-height: 0.95;
-  letter-spacing: 0.01em;
-  white-space: nowrap;
-  user-select: none;
-}
-
-.card__panel span {
-  font-size: 4.5rem;
-  font-size: 19cqi;
-}
-
-@supports (-webkit-text-stroke: 1px) {
-  .card__panel {
-    color: transparent;
-    -webkit-text-stroke: 1px var(--light-bg);
-  }
 }
 
 .card__body {
@@ -1076,6 +1127,7 @@ h3 {
 
 .card__list li {
   padding: 0.6rem 0;
+  text-wrap: pretty;
   border-bottom: 1px solid color-mix(in srgb, var(--light-fg) 22%, transparent);
 }
 
@@ -1190,7 +1242,7 @@ h3 {
 
 .credit dl {
   display: grid;
-  grid-template-columns: max-content minmax(0, 1fr);
+  grid-template-columns: 7rem minmax(0, 1fr);
   gap: 0.2rem 1rem;
   margin: 0;
   color: var(--fg-muted);
@@ -1297,4 +1349,77 @@ h3 {
     animation: none !important;
     transition: none !important;
   }
+}
+
+/* ---------- Scroll fades (Squarespace-style) ----------
+   main.js tags sections with .fade as the page loads and toggles .is-in as they
+   enter and leave the screen, so things fade in on the way down and again on the
+   way back up. Nothing is hidden without JS: only main.js adds .fade, and .fx
+   (set by a one-line script in each page's <head>, so the hero can fade in from
+   the first paint) only drives the animations. None of it runs for people who
+   turn motion down, or when printing. */
+
+@media screen and (prefers-reduced-motion: no-preference) {
+  .band {
+    overflow: hidden;   /* photos start slightly zoomed while fading in */
+  }
+
+  .fx .fade {
+    opacity: 0;
+    translate: 0 1.75rem;
+    transition:
+      opacity 0.9s cubic-bezier(0.2, 0.65, 0.25, 1),
+      translate 1.1s cubic-bezier(0.2, 0.65, 0.25, 1),
+      scale 1.6s cubic-bezier(0.2, 0.65, 0.25, 1);
+  }
+
+  .fx .fade.is-in {
+    opacity: 1;
+    translate: none;
+    transition-delay: var(--fade-delay, 0s);
+  }
+
+  /* photos: a gentle zoom-out as they fade in, no slide */
+  .fx .fade--photo {
+    translate: none;
+    scale: 1.06;
+  }
+
+  .fx .fade--photo.is-in {
+    scale: 1;
+  }
+
+  /* the thin rule draws itself across */
+  .fx .fade--line {
+    translate: none;
+    scale: 0 1;
+    transform-origin: left center;
+  }
+
+  .fx .fade--line.is-in {
+    scale: 1 1;
+  }
+
+  /* the hero fades up on load */
+  .fx .hero__word {
+    animation:
+      hero-in 1.4s cubic-bezier(0.2, 0.65, 0.25, 1) both,
+      drift 26s ease-in-out 1.4s infinite alternate backwards;
+  }
+
+  .fx .hero__tag,
+  .fx .hero__actions,
+  .fx .hero__meta {
+    animation: hero-up 1.1s cubic-bezier(0.2, 0.65, 0.25, 1) 0.45s both;
+  }
+}
+
+@keyframes hero-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes hero-up {
+  from { opacity: 0; translate: 0 1.25rem; }
+  to { opacity: 1; translate: none; }
 }

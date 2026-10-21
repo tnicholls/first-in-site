@@ -186,7 +186,10 @@ def main():
         if original not in credits_text:
             fail(f"image {img} is used but {original} is not listed on the credits page")
     for c in credits:
-        for key in ("title", "author", "license", "license_url", "source_url", "alt"):
+        # photos supplied by First In have no licence or source link
+        own = c.get("license") == "Used with permission"
+        keys = ("title", "author", "license", "alt") if own else ("title", "author", "license", "license_url", "source_url", "alt")
+        for key in keys:
             if not c.get(key):
                 fail(f"credits.json entry {c.get('file')} missing {key}")
 
