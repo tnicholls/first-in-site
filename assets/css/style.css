@@ -452,8 +452,9 @@ h3 {
 .hero__stage {
   display: flex;
   align-items: center;
-  justify-content: center; /* an over-wide child overflows equally both sides */
+  justify-content: flex-start; /* the marquee track starts at the left edge */
   min-width: 0;
+  overflow: hidden;
 }
 
 .hero__word {
@@ -462,36 +463,43 @@ h3 {
   font-family: var(--font-display);
   font-weight: 400;
   font-synthesis: none;
-  /* purely width-driven so the word always bleeds off both edges. It is never
-     shrunk to fit the height: on wide, short screens the hero just runs past
-     the fold (the tagline sits below it) rather than losing the crop */
+  /* purely width-driven so the word always bleeds off both edges */
   font-size: var(--hero-size, 55vw);
-  translate: var(--hero-nudge, 0) 0;
   line-height: 0.86;
   letter-spacing: -0.03em;
   text-transform: uppercase;
   white-space: nowrap;
+  user-select: none;
+}
+
+/* the word runs as a marquee: three copies in a row, sliding left forever.
+   --hero-speed is the time for one copy to pass; smaller = faster */
+.hero__track {
+  display: flex;
+  width: max-content;
+}
+
+.hero__track > span {
+  padding-right: 0.22em;
   color: var(--word-bottom);
   background: linear-gradient(180deg, var(--word-top) 10%, var(--word-bottom) 92%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  user-select: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .hero__word {
-    animation: drift 9s ease-in-out infinite alternate;
+  .hero__track {
+    animation: marquee var(--hero-speed, 11s) linear infinite;
   }
 }
 
-/* each word overflows ~5vw per side, so a 2vw drift keeps both edges cropped */
-@keyframes drift {
+@keyframes marquee {
   from {
-    transform: translateX(-2vw);
+    transform: translateX(0);
   }
   to {
-    transform: translateX(2vw);
+    transform: translateX(-33.3333%);
   }
 }
 
@@ -1411,9 +1419,7 @@ h3 {
 
   /* the hero fades up on load */
   .fx .hero__word {
-    animation:
-      hero-in 1.4s cubic-bezier(0.2, 0.65, 0.25, 1) both,
-      drift 9s ease-in-out 1.4s infinite alternate backwards;
+    animation: hero-in 1.4s cubic-bezier(0.2, 0.65, 0.25, 1) both;
   }
 
   /* Exeter page has no hero: its opening photo band fades in on load instead */

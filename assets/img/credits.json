@@ -18,15 +18,6 @@
     "alt": "Exeter Cathedral floodlit against a deep blue night sky"
   },
   {
-    "file": "exeter-quay-night.jpg",
-    "title": "Exeter, River Exe",
-    "author": "Lewis Clarke",
-    "license": "CC BY-SA 2.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
-    "source_url": "https://commons.wikimedia.org/wiki/File:Exeter_,_River_Exe_-_geograph.org.uk_-_6365421.jpg",
-    "alt": "Exeter Quay at night, its lights reflected in the River Exe"
-  },
-  {
     "file": "bristol-wills-memorial.jpg",
     "title": "Wills Memorial Building, Bristol",
     "author": "Supplied by First In",
@@ -70,5 +61,14 @@
     "license_url": "",
     "source_url": "",
     "alt": "A group of friends laughing with their arms up on a busy dance floor"
+  },
+  {
+    "file": "club-lasers.jpg",
+    "title": "Club dance floor with light beams",
+    "author": "Supplied by First In",
+    "license": "Used with permission",
+    "license_url": "",
+    "source_url": "",
+    "alt": "A packed club dance floor seen from above, with light beams sweeping over the crowd"
   }
 ]
