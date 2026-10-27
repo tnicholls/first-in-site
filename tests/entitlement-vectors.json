@@ -1,0 +1,474 @@
+{
+  "about": "Made by tools/make_vectors.py from ping-member-bot's first_in_bot.entitlement.is_entitled. Don't edit by hand.",
+  "grace_hours": 72,
+  "cases": [
+    {
+      "name": "trial running",
+      "subscription": {
+        "status": "trialing",
+        "period_start": "2026-11-01T12:00:00Z",
+        "period_end": "2026-11-15T12:00:00Z",
+        "trial_end": "2026-11-15T12:00:00Z",
+        "cancel_at": null,
+        "cancel_at_period_end": false,
+        "past_due_since": null
+      },
+      "checks": [
+        {
+          "at": "2026-11-01T12:00:00Z",
+          "member": true
+        },
+        {
+          "at": "2026-11-14T12:00:00Z",
+          "member": true
+        },
+        {
+          "at": "2026-11-15T11:59:59Z",
+          "member": true
+        }
+      ]
+    },
+    {
+      "name": "trial running, cancelled at the trial end",
+      "subscription": {
+        "status": "trialing",
+        "period_start": "2026-11-01T12:00:00Z",
+        "period_end": "2026-11-15T12:00:00Z",
+        "trial_end": "2026-11-15T12:00:00Z",
+        "cancel_at": null,
+        "cancel_at_period_end": true,
+        "past_due_since": null
+      },
+      "checks": [
+        {
+          "at": "2026-11-02T12:00:00Z",
+          "member": true
+        },
+        {
+          "at": "2026-11-15T11:59:59Z",
+          "member": true
+        }
+      ]
+    },
+    {
+      "name": "trial running, cancel_at before the trial end",
+      "subscription": {
+        "status": "trialing",
+        "period_start": "2026-11-01T12:00:00Z",
+        "period_end": "2026-11-15T12:00:00Z",
+        "trial_end": "2026-11-15T12:00:00Z",
+        "cancel_at": "2026-11-06T12:00:00Z",
+        "cancel_at_period_end": false,
+        "past_due_since": null
+      },
+      "checks": [
+        {
+          "at": "2026-11-02T12:00:00Z",
+          "member": true
+        },
+        {
+          "at": "2026-11-06T11:59:59Z",
+          "member": true
+        }
+      ]
+    },
+    {
+      "name": "trial with no trial_end, only a period end",
+      "subscription": {
+        "status": "trialing",
+        "period_start": "2026-11-01T12:00:00Z",
+        "period_end": "2026-11-15T12:00:00Z",
+        "trial_end": null,
+        "cancel_at": null,
+        "cancel_at_period_end": false,
+        "past_due_since": null
+      },
+      "checks": [
+        {
+          "at": "2026-11-02T12:00:00Z",
+          "member": true
+        }
+      ]
+    },
+    {
+      "name": "paying",
+      "subscription": {
+        "status": "active",
+        "period_start": "2026-11-01T12:00:00Z",
+        "period_end": "2026-12-01T12:00:00Z",
+        "trial_end": null,
+        "cancel_at": null,
+        "cancel_at_period_end": false,
+        "past_due_since": null
+      },
+      "checks": [
+        {
+          "at": "2026-11-01T12:00:00Z",
+          "member": true
+        },
+        {
+          "at": "2026-11-30T12:00:00Z",
+          "member": true
+        },
+        {
+          "at": "2026-12-01T11:59:59Z",
+          "member": true
+        }
+      ]
+    },
+    {
+      "name": "paying, cancelled at period end",
+      "subscription": {
+        "status": "active",
+        "period_start": "2026-11-01T12:00:00Z",
+        "period_end": "2026-12-01T12:00:00Z",
+        "trial_end": null,
+        "cancel_at": null,
+        "cancel_at_period_end": true,
+        "past_due_since": null
+      },
+      "checks": [
+        {
+          "at": "2026-11-02T12:00:00Z",
+          "member": true
+        },
+        {
+          "at": "2026-12-01T11:59:59Z",
+          "member": true
+        }
+      ]
+    },
+    {
+      "name": "paying, cancel_at mid-period (flexible billing)",
+      "subscription": {
+        "status": "active",
+        "period_start": "2026-11-01T12:00:00Z",
+        "period_end": "2026-12-01T12:00:00Z",
+        "trial_end": null,
+        "cancel_at": "2026-11-11T12:00:00Z",
+        "cancel_at_period_end": false,
+        "past_due_since": null
+      },
+      "checks": [
+        {
+          "at": "2026-11-02T12:00:00Z",
+          "member": true
+        },
+        {
+          "at": "2026-11-11T11:59:59Z",
+          "member": true
+        }
+      ]
+    },
+    {
+      "name": "paying after a trial",
+      "subscription": {
+        "status": "active",
+        "period_start": "2026-11-01T12:00:00Z",
+        "period_end": "2026-12-01T12:00:00Z",
+        "trial_end": "2026-11-01T11:59:59Z",
+        "cancel_at": null,
+        "cancel_at_period_end": false,
+        "past_due_since": null
+      },
+      "checks": [
+        {
+          "at": "2026-11-02T12:00:00Z",
+          "member": true
+        }
+      ]
+    },
+    {
+      "name": "past due, grace from the unpaid period's start",
+      "subscription": {
+        "status": "past_due",
+        "period_start": "2026-11-01T12:00:00Z",
+        "period_end": "2026-12-01T12:00:00Z",
+        "trial_end": null,
+        "cancel_at": null,
+        "cancel_at_period_end": false,
+        "past_due_since": null
+      },
+      "checks": [
+        {
+          "at": "2026-11-01T12:00:00Z",
+          "member": true
+        },
+        {
+          "at": "2026-11-01T13:00:00Z",
+          "member": true
+        },
+        {
+          "at": "2026-11-04T11:59:59Z",
+          "member": true
+        },
+        {
+          "at": "2026-11-04T12:00:00Z",
+          "member": false
+        },
+        {
+          "at": "2026-11-06T12:00:00Z",
+          "member": false
+        },
+        {
+          "at": "2026-12-11T12:00:00Z",
+          "member": false
+        }
+      ]
+    },
+    {
+      "name": "past due since an earlier period (Stripe left it past_due)",
+      "subscription": {
+        "status": "past_due",
+        "period_start": "2026-11-01T12:00:00Z",
+        "period_end": "2026-12-01T12:00:00Z",
+        "trial_end": null,
+        "cancel_at": null,
+        "cancel_at_period_end": false,
+        "past_due_since": "2026-10-02T12:00:00Z"
+      },
+      "checks": [
+        {
+          "at": "2026-10-02T13:00:00Z",
+          "member": true
+        },
+        {
+          "at": "2026-11-01T12:00:00Z",
+          "member": false
+        },
+        {
+          "at": "2026-11-01T13:00:00Z",
+          "member": false
+        }
+      ]
+    },
+    {
+      "name": "past due, first unpaid period started just now",
+      "subscription": {
+        "status": "past_due",
+        "period_start": "2026-11-01T12:00:00Z",
+        "period_end": "2026-12-01T12:00:00Z",
+        "trial_end": null,
+        "cancel_at": null,
+        "cancel_at_period_end": false,
+        "past_due_since": "2026-11-01T12:00:00Z"
+      },
+      "checks": [
+        {
+          "at": "2026-11-04T11:00:00Z",
+          "member": true
+        },
+        {
+          "at": "2026-11-04T12:00:00Z",
+          "member": false
+        }
+      ]
+    },
+    {
+      "name": "past due with no period start (old data): grace from period end",
+      "subscription": {
+        "status": "past_due",
+        "period_start": null,
+        "period_end": "2026-11-01T12:00:00Z",
+        "trial_end": null,
+        "cancel_at": null,
+        "cancel_at_period_end": false,
+        "past_due_since": null
+      },
+      "checks": [
+        {
+          "at": "2026-10-31T12:00:00Z",
+          "member": true
+        },
+        {
+          "at": "2026-11-04T11:00:00Z",
+          "member": true
+        },
+        {
+          "at": "2026-11-04T12:00:00Z",
+          "member": false
+        }
+      ]
+    },
+    {
+      "name": "past due after a failed first charge",
+      "subscription": {
+        "status": "past_due",
+        "period_start": "2026-11-01T12:00:00Z",
+        "period_end": "2026-12-01T12:00:00Z",
+        "trial_end": "2026-11-01T12:00:00Z",
+        "cancel_at": null,
+        "cancel_at_period_end": false,
+        "past_due_since": null
+      },
+      "checks": [
+        {
+          "at": "2026-11-01T13:00:00Z",
+          "member": true
+        },
+        {
+          "at": "2026-11-04T13:00:00Z",
+          "member": false
+        }
+      ]
+    },
+    {
+      "name": "cancelled during the trial",
+      "subscription": {
+        "status": "canceled",
+        "period_start": "2026-10-30T12:00:00Z",
+        "period_end": "2026-11-13T12:00:00Z",
+        "trial_end": "2026-11-13T12:00:00Z",
+        "cancel_at": null,
+        "cancel_at_period_end": false,
+        "past_due_since": null
+      },
+      "checks": [
+        {
+          "at": "2026-11-01T12:00:00Z",
+          "member": true
+        },
+        {
+          "at": "2026-11-13T11:59:59Z",
+          "member": true
+        },
+        {
+          "at": "2026-11-13T12:00:00Z",
+          "member": false
+        },
+        {
+          "at": "2026-11-21T12:00:00Z",
+          "member": false
+        }
+      ]
+    },
+    {
+      "name": "cancelled after the trial",
+      "subscription": {
+        "status": "canceled",
+        "period_start": "2026-09-22T12:00:00Z",
+        "period_end": "2026-10-22T12:00:00Z",
+        "trial_end": "2026-10-06T12:00:00Z",
+        "cancel_at": null,
+        "cancel_at_period_end": false,
+        "past_due_since": null
+      },
+      "checks": [
+        {
+          "at": "2026-11-01T12:00:00Z",
+          "member": false
+        },
+        {
+          "at": "2026-11-02T12:00:00Z",
+          "member": false
+        }
+      ]
+    },
+    {
+      "name": "cancelled, never had a trial",
+      "subscription": {
+        "status": "canceled",
+        "period_start": "2026-10-02T12:00:00Z",
+        "period_end": "2026-11-01T12:00:00Z",
+        "trial_end": null,
+        "cancel_at": null,
+        "cancel_at_period_end": false,
+        "past_due_since": null
+      },
+      "checks": [
+        {
+          "at": "2026-10-31T12:00:00Z",
+          "member": false
+        },
+        {
+          "at": "2026-11-01T12:00:00Z",
+          "member": false
+        },
+        {
+          "at": "2026-11-02T12:00:00Z",
+          "member": false
+        }
+      ]
+    },
+    {
+      "name": "unpaid",
+      "subscription": {
+        "status": "unpaid",
+        "period_start": "2026-11-01T12:00:00Z",
+        "period_end": "2026-12-01T12:00:00Z",
+        "trial_end": null,
+        "cancel_at": null,
+        "cancel_at_period_end": false,
+        "past_due_since": null
+      },
+      "checks": [
+        {
+          "at": "2026-11-01T12:00:00Z",
+          "member": false
+        },
+        {
+          "at": "2026-11-02T12:00:00Z",
+          "member": false
+        }
+      ]
+    },
+    {
+      "name": "incomplete",
+      "subscription": {
+        "status": "incomplete",
+        "period_start": "2026-11-01T12:00:00Z",
+        "period_end": "2026-12-01T12:00:00Z",
+        "trial_end": null,
+        "cancel_at": null,
+        "cancel_at_period_end": false,
+        "past_due_since": null
+      },
+      "checks": [
+        {
+          "at": "2026-11-01T12:00:00Z",
+          "member": false
+        }
+      ]
+    },
+    {
+      "name": "incomplete_expired",
+      "subscription": {
+        "status": "incomplete_expired",
+        "period_start": "2026-11-01T12:00:00Z",
+        "period_end": "2026-12-01T12:00:00Z",
+        "trial_end": null,
+        "cancel_at": null,
+        "cancel_at_period_end": false,
+        "past_due_since": null
+      },
+      "checks": [
+        {
+          "at": "2026-11-01T12:00:00Z",
+          "member": false
+        }
+      ]
+    },
+    {
+      "name": "paused (trial ended with no card)",
+      "subscription": {
+        "status": "paused",
+        "period_start": "2026-11-01T12:00:00Z",
+        "period_end": "2026-12-01T12:00:00Z",
+        "trial_end": "2026-11-01T12:00:00Z",
+        "cancel_at": null,
+        "cancel_at_period_end": false,
+        "past_due_since": null
+      },
+      "checks": [
+        {
+          "at": "2026-11-01T12:00:00Z",
+          "member": false
+        },
+        {
+          "at": "2026-11-01T13:00:00Z",
+          "member": false
+        }
+      ]
+    }
+  ]
+}

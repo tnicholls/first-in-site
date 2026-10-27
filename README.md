@@ -4,6 +4,8 @@ The public website for **First In**: Telegram alerts for UK student nights. We t
 
 It's a plain static site: HTML, one CSS file and one small script. No build step, no frameworks, nothing to install. Every path is relative, so it works on a GitHub Pages project URL and on a custom domain.
 
+The account app (log in, free or member) is `app/`, with its backend in `supabase/`. It has its own guide: [ACCOUNTS.md](ACCOUNTS.md).
+
 ## What's where
 
 | Path | What it is |
@@ -20,8 +22,12 @@ It's a plain static site: HTML, one CSS file and one small script. No build step
 | `assets/favicon.svg` | The ticket-with-a-1 logo |
 | `assets/apple-touch-icon.png` | 180×180 PNG of the logo for iOS "Add to Home Screen" |
 | `tools/check_site.py` | Link, HTML and content checker (see below) |
+| `app/` | The account app: log in with an email code, free or member. See [ACCOUNTS.md](ACCOUNTS.md) |
+| `supabase/` | The account app's backend (database and functions), deployed to Supabase, not by GitHub Pages |
+| `tests/`, `tools/test_db.py`, `tools/make_vectors.py` | The account app's tests |
+| `tools/demo.html`, `tools/serve.py` | The account app on a pretend backend, and a local server that hides `supabase/` and dotfiles |
 | `.nojekyll` | Tells GitHub Pages to serve the files as they are |
-| `.gitignore` | Keeps `.claude/` (local preview config) and `.DS_Store` out of the repo. With `.nojekyll`, anything committed is served publicly. |
+| `.gitignore` | Keeps `.claude/` (local preview config), `.DS_Store` and the account app's local test keys out of the repo. With `.nojekyll`, anything committed is served publicly. |
 
 ## Links used on the site
 
@@ -40,6 +46,8 @@ python3 -m http.server 8000
 ```
 
 Then open <http://localhost:8000>. Use the server rather than double-clicking the files, because the links point at folders (`exeter/`) and a browser opening files directly won't turn those into `index.html`.
+
+When you're testing the account app with its local test keys, use `python3 tools/serve.py` instead. It serves the same, at <http://127.0.0.1:8000>, but never `supabase/` (where the Stripe test key sits) or dotfiles.
 
 ## Check before publishing
 

@@ -1,3 +1,9 @@
 .claude/
 .DS_Store
 __pycache__/
+# The account app's local-only files (ACCOUNTS.md): test keys and the test Postgres.
+.venv/
+app/config.local.js
+supabase/functions/.env
+supabase/.temp/
+supabase/.branches/
