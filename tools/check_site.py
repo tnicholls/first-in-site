@@ -96,7 +96,8 @@ def rel(p):
 def html_files():
     out = []
     for dirpath, dirnames, filenames in os.walk(ROOT):
-        dirnames[:] = [d for d in dirnames if not d.startswith(".") and d != "tools"]
+        # tools/ and the account app's backend (supabase/: its email template) and tests aren't site pages
+        dirnames[:] = [d for d in dirnames if not d.startswith(".") and d not in ("tools", "supabase", "tests")]
         for f in filenames:
             if f.endswith(".html"):
                 out.append(os.path.join(dirpath, f))

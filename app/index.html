@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your account – First In Exeter</title>
+  <meta name="description" content="Log in to First In: free, or a member with instant ticket-drop alerts.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="First In">
+  <meta property="og:title" content="Your account – First In Exeter">
+  <meta property="og:description" content="Log in to First In: free, or a member with instant ticket-drop alerts.">
+  <meta name="theme-color" content="#10261a">
+  <meta name="robots" content="noindex">
+  <!-- Only this site, its own files, Supabase and (if turned on) Cloudflare's Turnstile check.
+       No inline scripts or styles. When publishing, replace https://*.supabase.co with the
+       project's own URL. -->
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self' https://challenges.cloudflare.com; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self' http://127.0.0.1:54321 http://localhost:54321 https://*.supabase.co wss://*.supabase.co; frame-src https://challenges.cloudflare.com; base-uri 'none'; form-action 'self'; object-src 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="app.css">
+  <script src="vendor/supabase-2.118.0.js" defer></script>
+  <script type="module" src="app.js"></script>
+</head>
+<body class="theme-exeter app-page">
+  <header class="app-header">
+    <a class="wordmark" href="../exeter/">
+      <svg class="logo" viewBox="0 0 40 26" width="30" height="20" aria-hidden="true" focusable="false"><path d="M1 1H39V9A4 4 0 0 0 39 17V25H1V17A4 4 0 0 0 1 9Z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M13 4V22" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2 2"/><path d="M23 9.5L27 6.5V20M23 20H31" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+      <span>First In <span class="wordmark__sub">Exeter</span></span>
+    </a>
+  </header>
+  <main id="main" class="app-main">
+    <div id="app" aria-live="polite">
+      <noscript><p class="app-lede">First In's account page needs JavaScript.</p></noscript>
+    </div>
+    <div id="captcha" class="app-captcha" hidden></div>
+  </main>
+  <footer class="site-footer">
+    <p>Not affiliated with FIXR, Fatsoma or any venue.</p>
+  </footer>
+</body>
+</html>
